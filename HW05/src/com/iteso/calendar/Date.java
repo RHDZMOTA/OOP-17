@@ -34,9 +34,9 @@ public class Date {
      * @param format integer format
      */
     public Date(int dd, int mm, int yy, int format) {
+        setYear(yy);
         setMonth(mm);
         setDay(dd);
-        setYear(yy);
         setFormat(format);
     }
 
@@ -66,6 +66,12 @@ public class Date {
     }
 
     /**
+     * Identify if the year is leap.
+     * @return True if leap.
+     */
+    public boolean isLeap() {return ((getYear() % 4 == 0) && ((getYear() % 100 != 0) || (getYear() % 400 == 0))); }
+
+    /**
      * Setter for year.
      * @param year year as integer.
      */
@@ -87,7 +93,7 @@ public class Date {
      */
     public void setDay(int day) {
         if (getMonth() == 2) {
-            this.day = (day >= 1 && day <= 28) ? day : 1;
+            this.day = (isLeap()) ? ((day >= 1 && day <= 29) ? day : 1) : ((day >= 1 && day <= 28) ? day : 1);
         } else if (isIntElementPresent(getMonth(), new int[] {4, 6, 9, 11})) {
             this.day = (day >= 1 && day <= 30) ? day : 1;
         } else {
